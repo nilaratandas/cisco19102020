@@ -262,3 +262,23 @@ Successfully tagged python:ashuv1
    ```
    
    
+# PYthon Flask example 
+
+## After building docker image create a container 
+
+```
+sudo docker  run -itd  --name  ashuweb1 -p  1234:5000  python:flaskv1
+```
+
+## Taking backup 
+
+```
+sudo docker  save  -o  myflaskapp.tar  python:flaskv1 
+
+```
+
+## Restoring from tar file into a new docker engine host
+```
+sudo docker load -i  myflaskapp.tar
+
+```
