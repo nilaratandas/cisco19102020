@@ -64,3 +64,50 @@ Resolving Dependencies
 
 <img src="dockerpp.png">
 
+## Some Docker commands 
+
+### Search & Pull 
+
+
+```
+19  sudo docker  search  python 
+   20  sudo docker  search  java
+   21  history 
+   22  sudo docker  search  mongodb
+   23  history 
+   24  sudo docker  images
+   25  sudo docker  pull  java
+   26  sudo docker  images
+   27  sudo docker  pull  python 
+   28  sudo docker  pull  mysql 
+   
+```
+
+## container create and manage 
+
+```
+54  sudo  docker  run    alpine    cal 
+   55  sudo  docker  run    alpine    ping  8.8.8.8
+   56  history 
+   57  sudo docker   ps
+   58  sudo docker   ps -a
+   59  history 
+   60  sudo docker   ps -a
+   61  sudo  docker  run    python   cal 
+   62  sudo  docker  run    mysql   cal 
+   63  history 
+   64  sudo docker  images
+   65  sudo docker  ps
+   66  sudo docker  ps -a
+   67  clear
+   68  sudo  docker  run  alpine  ping fb.com 
+   69  sudo  docker  run  -d  alpine  ping fb.com 
+   70  sudo docker  ps
+   71  history 
+   72  sudo docker  ps
+   73  sudo  docker  logs 8ab77bb388e2  
+   74  history 
+   75  sudo docker  ps  -a
+   76  sudo  docker  logs c0f34bae9ffa
+   
+   ```
