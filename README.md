@@ -111,3 +111,75 @@ Resolving Dependencies
    76  sudo  docker  logs c0f34bae9ffa
    
    ```
+
+## checking parent process output 
+
+```
+ 87  sudo  docker  run  -d  --name  ashuc1  alpine  ping 8.8.8.8
+   88  sudo  docker  ps
+   89  sudo  docker  logs   ashuc1 
+   90  history 
+   91  sudo  docker  logs  -f   ashuc1 
+
+```
+
+## kill and start operation 
+
+```
+[ec2-user@ip-172-31-59-169 ~]$ sudo  docker  ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                         PORTS               NAMES
+2d157b7700d4        alpine              "ping 8.8.8.8"           4 minutes ago       Exited (137) 57 seconds ago                        ashuc1
+8ab77bb388e2        alpine              "ping fb.com"            About an hour ago   Exited (137) 36 seconds ago                        flamboyant_keldysh
+7099a54dd725        alpine              "ping fb.com"            About an hour ago   Exited (0) About an hour ago                       pedantic_einstein
+68e8a9b17495        mysql               "docker-entrypoint.s…"   2 hours ago         Exited (127) 2 hours ago                           condescending_lovelace
+966823db31eb        python              "cal"                    2 hours ago         Created                                            hungry_hertz
+2f3817aa20c6        alpine              "ping 8.8.8.8"           2 hours ago         Exited (0) 2 hours ago                             agitated_hopper
+c0f34bae9ffa        alpine              "cal"                    2 hours ago         Exited (0) 2 hours ago                             condescending_khayyam
+[ec2-user@ip-172-31-59-169 ~]$ sudo docker  start  ashuc1  8ab77bb388e2 
+ashuc1
+8ab77bb388e2
+[ec2-user@ip-172-31-59-169 ~]$ sudo  docker  ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+2d157b7700d4        alpine              "ping 8.8.8.8"      5 minutes ago       Up 4 seconds                            ashuc1
+8ab77bb388e2        alpine              "ping fb.com"       About an hour ago   Up 3 seconds    
+
+```
+
+## child process using Docker exec
+
+```
+[ec2-user@ip-172-31-59-169 ~]$ sudo  docker   exec  ashuc1   cal 
+    October 2020
+Su Mo Tu We Th Fr Sa
+             1  2  3
+ 4  5  6  7  8  9 10
+11 12 13 14 15 16 17
+18 19 20 21 22 23 24
+25 26 27 28 29 30 31
+                     
+[ec2-user@ip-172-31-59-169 ~]$ sudo  docker   exec  ashuc1   ping fb.com 
+PING fb.com (31.13.66.35): 56 data bytes
+64 bytes from 31.13.66.35: seq=0 ttl=51 time=1.072 ms
+64 bytes from 31.13.66.35: seq=1 ttl=51 time=1.164 ms
+64 bytes from 31.13.66.35: seq=2 ttl=51 time=1.128 ms
+^C
+[ec2-user@ip-172-31-59-169 ~]$ sudo docker  ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+2d157b7700d4        alpine              "ping 8.8.8.8"      11 minutes ago      Up 5 minutes                            ashuc1
+8ab77bb388e2        alpine              "ping fb.com"       2 hours ago         Up 5 minutes                            flamboyant_keldysh
+[ec2-user@ip-172-31-59-169 ~]$ sudo  docker   exec  -it  ashuc1   sh 
+/ # cat  /etc/os-release 
+NAME="Alpine Linux"
+ID=alpine
+VERSION_ID=3.12.0
+PRETTY_NAME="Alpine Linux v3.12"
+HOME_URL="https://alpinelinux.org/"
+BUG_REPORT_URL="https://bugs.alpinelinux.org/"
+/ # 
+/ # 
+/ # 
+/ # exit
+
+
+```
+
