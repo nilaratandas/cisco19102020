@@ -313,3 +313,18 @@ sudo docker load -i  myflaskapp.tar
   184  sudo docker  images
 
 ```
+
+## Docker image push on Docker hub 
+
+```
+ 189  sudo docker  images
+  190  sudo docker   tag   python:flaskv1   dockerashu/python:flaskv1  
+  191  sudo docker  images
+  192  docker  login 
+  193  sudo docker  login 
+  194  sudo docker  push   dockerashu/python:flaskv1  
+  195  history 
+  196  sudo docker  logout 
+
+```
+
