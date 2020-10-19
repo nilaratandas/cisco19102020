@@ -282,3 +282,34 @@ sudo docker  save  -o  myflaskapp.tar  python:flaskv1
 sudo docker load -i  myflaskapp.tar
 
 ```
+
+## Docker history 
+
+```
+ 109  sudo docker  run -it --rm  python    bash 
+  110  vim Dockerfile
+  111  sudo  docker  info 
+  112  vim Dockerfile
+  115  sudo docker  build  -t  python:flaskv1  .  
+  117  sudo docker  images
+  118  sudo docker  run -itd  --name  ashuweb1 -p  1234:5000  python:flaskv1 
+  119  sudo docker  ps
+  121  sudo docker  ps
+  132  cp day1/Dockerfile  cisco19102020/day1/
+  138  git commit -m  "docker"
+  142  sudo docker  images
+  144  sudo docker  save  -o  myflaskapp.tar  python:flaskv1  
+  161  docker  image
+  169  docker  ps 
+  170  sudo docker  ps  
+  171  sudo docker  rm $(sudo docker  ps -aq)  -f
+  172  sudo docker  ps  
+  173  sudo docker  images 
+  174  sudo docker  rmi $(docker images  -q)  -f
+  175  sudo docker  rmi $(sudo docker images  -q)  -f
+  177  sudo docker  images
+  180  sudo docker  images
+  181  sudo docker load -i  myflaskapp.tar 
+  184  sudo docker  images
+
+```
