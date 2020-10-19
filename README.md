@@ -183,3 +183,82 @@ BUG_REPORT_URL="https://bugs.alpinelinux.org/"
 
 ```
 
+# Docker Basic operations 
+
+<img src="dockerbasic.png">
+
+# Creating Custom Docker images
+
+## Example 1 
+
+### create an empty directory 
+
+```
+mkdir day1
+cd day1
+```
+
+### updating python code and dockerfile
+
+```
+[ec2-user@ip-172-31-59-169 day1]$ cat  ashu.py 
+import  time
+
+print("creating  a  magic loop")
+
+while 3 > 2 :
+    print("Hello wrold")
+    time.sleep(2)
+    print("______________")
+[ec2-user@ip-172-31-59-169 
+
+====
+[ec2-user@ip-172-31-59-169 day1]$ cat  Dockerfile 
+FROM  python 
+#  it will pull  python docker image if not present 
+MAINTAINER   ashutoshh@linux.com
+RUN   mkdir   /myapps
+COPY  ashu.py  /myapps/ashu.py 
+#  is to copy data from host to Docker image 
+#  location of Dockerfile and code will be same 
+CMD  python  /myapps/ashu.py 
+#  CMD is for  default parent process if not define by user
+
+```
+
+## Building python code into docker image
+
+```
+ec2-user@ip-172-31-59-169 day1]$ sudo  docker build  -t   python:ashuv1   .
+Sending build context to Docker daemon  3.072kB
+Step 1/5 : FROM  python
+ ---> 18f3593da4a5
+Step 2/5 : MAINTAINER   ashutoshh@linux.com
+ ---> Running in 907594e2a15d
+Removing intermediate container 907594e2a15d
+ ---> c24262ab591e
+Step 3/5 : RUN   mkdir   /myapps
+ ---> Running in 130e31800309
+Removing intermediate container 130e31800309
+ ---> 4b920b623393
+Step 4/5 : COPY  ashu.py  /myapps/ashu.py
+ ---> d466e48952b3
+Step 5/5 : CMD  python  /myapps/ashu.py
+ ---> Running in f1b7f77fa11f
+Removing intermediate container f1b7f77fa11f
+ ---> aa618236be62
+Successfully built aa618236be62
+Successfully tagged python:ashuv1
+
+```
+
+## launch a python container 
+
+```
+ 17  sudo docker  run -d -it   --name ashux1  python:ashuv1   
+   18  sudo  docker  logs  ashux1 
+   19  sudo  docker  logs -f   ashux1 
+   
+   ```
+   
+   
