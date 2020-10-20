@@ -80,3 +80,88 @@ Successfully tagged http:ashuappv1
 
 ```
 
+## Now creating container 
+
+```
+ docker  run -d --name x2  -p 1111:80  http:dasv1 
+ 
+ ```
+ 
+ ## html app with Dockerfile 
+ 
+ ```
+ FROM  centos
+MAINTAINER  ashutoshh@linux.com
+RUN  yum  install  httpd mod_ssl  -y
+#  httpd  is just for hosting app in http proto 
+# mod_ssl will give an option for hosting app in https 
+WORKDIR   /var/www/html/
+#COPY project-html-website    .
+ADD  project-html-website    .
+EXPOSE 80 
+ENTRYPOINT  httpd -DFOREGROUND 
+#  systemctl  start  httpd  ---> using program  "httpd -DFOREGROUND"
+#  systemctl we can't use bcz this is dependent process 
+#  
+
+```
+
+ ## Building docker image 
+ 
+ ```
+  docker build  -t   httpd:ashuv002  . 
+  
+  ```
+  
+  ## Creating a container 
+  
+  ```
+   docker run  --name  ashxc2  -d  -p 2222:80  d915a21cc32f
+   
+   ```
+   
+   ## access running container  and making changes 
+   
+   ```
+  [ec2-user@ip-172-31-58-55 microsoftapp]$ docker  exec  -it   ashxc2  bash 
+[root@ba2e2b20794d html]# 
+[root@ba2e2b20794d html]# whoami
+root
+[root@ba2e2b20794d html]# pwd
+/var/www/html
+[root@ba2e2b20794d html]# yum install vim -y
+Failed to set locale, defaulting to C.UTF-8
+Last metadata expiration check: 0:05:46 ago on Tue Oct 20 07:22:48 2020.
+Package vim-enhanced-2:8.0.1763-13.el8.x86_64 is already installed.
+Dependencies resolved.
+Nothing to do.
+Complete!
+[root@ba2e2b20794d html]# ls
+LICENSE  README.md  css  fonts	img  index.html
+[root@ba2e2b20794d html]# 
+
+```
+
+
+## COnvert a container into Docker image 
+
+```
+docker  commit  -m  "few changes"  ashxc2   httpd:ashuv003
+
+```
+
+## Pushing docker image on Docker HUb 
+
+```
+215  docker  tag  httpd:ashuv003  dockerashu/httpd:ashuv003
+  216  docker  login -u  dockerashu 
+  217  docker  push  dockerashu/httpd:ashuv003
+  218  history 
+  219  docker  logout 
+```
+
+
+   
+   ```
+   
+   ## Now 
