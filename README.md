@@ -160,8 +160,65 @@ docker  commit  -m  "few changes"  ashxc2   httpd:ashuv003
   219  docker  logout 
 ```
 
+   
+#  Docker Networking 
 
-   
-   ```
-   
-   ## Now 
+## Container Network model 
+
+<img src="cnm.png">
+
+===
+
+<img src="portf.png">
+
+## Docker network create 
+
+```
+ 235  docker  network ls
+  236  docker  network  create   br1  
+  237  docker  network ls
+  238  docker  network  inspect  br1
+  ```
+  
+  ## creating containers
+  
+  ```
+  245  docker  run -d  --name br1x1  --network br1  alpine ping fb.com 
+  
+  247  docker  run -d  --name br1x2  --network br1  alpine ping google.com 
+  
+  ```
+  
+  ## Custom bridge
+  
+  ```
+   256   docker  network  create   br2 --subnet 192.168.0.0/24 
+  257  history 
+  258  docker  network  ls
+  259  docker  run -d  --name br2x1 --network br2  alpine ping fb.com 
+  260  docker  run -d  --name br2x2  --ip 192.168.0.100  --network br2  alpine ping google.com 
+  
+  ```
+  
+  ## docker bridge remove process
+  
+  ```
+  266  docker  network inspect  br1 
+  267  docker kill  br1x1 br1x2  
+  268  docker  network inspect  br1 
+  269  history 
+  270  docker  network rm   br1 
+  271  docker  network ls
+
+```
+
+## bridge to container interface 
+
+```
+ 278  docker  network  connect  br2  x1 
+  279  docker  exec  -it  x1  sh 
+  280  history 
+  281  docker  network  disconnect  br2  x1 
+  282  history 
+
+```
