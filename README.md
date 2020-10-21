@@ -149,3 +149,16 @@ builder  buildkit  containers  image  network  overlay2  plugins  runtimes  swar
   ```
   
   
+# problems in Container based application deployment in prod Env
+
+<img src="prod.png">
+
+## K8s Master arch
+
+<img src="k8sarch.png">
+
+## k8s minion 
+
+<img src="k8sminion.png">
+
+
