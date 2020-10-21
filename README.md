@@ -223,6 +223,12 @@ Then you can join any number of worker nodes by running the following on each as
 kubeadm join 172.31.68.168:6443 --token n6k21g.vpjy1tcveorbw3sg \
     --discovery-token-ca-cert-hash sha256:246d7a85ce3f574a4830655fd7b2e4f48300e3520dd641d484f01efc311bb433 
     
-    ```
+```
     
     
+## On the Master node deploy k8s calico Network pluging 
+
+```
+  kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
+  
+```
