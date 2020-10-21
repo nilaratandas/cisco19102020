@@ -291,3 +291,12 @@ spec:
   ```
   
   
+# POD generation in YAML / JSON 
+
+```
+ 499  kubectl  run  ashupod1  --image=nginx --port 80 --dry-run=client -o json 
+  500  kubectl  run  ashupod1  --image=nginx --port 80 --dry-run=client -o yaml 
+  501  kubectl  run  ashupod1  --image=nginx --port 80 --dry-run=client -o yaml >a.yml
+  502  kubectl  run  ashupod1  --image=nginx --port 80 --dry-run=client -o json >b.json 
+```
+
