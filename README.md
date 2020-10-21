@@ -232,3 +232,62 @@ kubeadm join 172.31.68.168:6443 --token n6k21g.vpjy1tcveorbw3sg \
   kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
   
 ```
+
+
+## K8s Client installation 
+
+[link for k8s] ('https://kubernetes.io/docs/tasks/tools/install-kubectl/')
+
+```
+  410  curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl"
+  411  ls
+  412  chmod +x ./kubectl
+  413  sudo mv ./kubectl /usr/local/bin/kubectl
+  414  kubectl version  --client
+  
+ ```
+ 
+ ## DE -- containers -- But K8s -- PODS
+ 
+ <img src="podc.png">
+ 
+ ## Dev pod
+ 
+ <img src="dev.png">
+ 
+ # First POd Design 
+ 
+ ```
+ ashutoshhs-MacBook-Air:microservices fire$ cat  ashu-nginx.yaml 
+apiVersion: v1  # For pod apiversion is v1 
+kind: Pod
+metadata:
+ name: ashu-pod-1  #  name of pod that must be unique 
+spec:
+ containers:   # info about all the container as per app desing 
+ - name: ashuc1
+   image: nginx # this image will be pulled from Docker HUB 
+   ports:
+   - containerPort: 80 #  same expose keyword in Dockerfile
+   
+   
+```
+
+## Deploying pod 
+
+```
+  474  kubectl apply -f ashu-nginx.yaml  --dry-run=client
+  475  kubectl apply -f ashu-nginx.yaml  
+  476  kubectl  get  pods
+  477  kubectl  get  pods
+  478  kubectl  get  pods
+  479  kubectl  get  pods
+  480  kubectl  get  pods
+  481  kubectl  get  pods
+  482  kubectl get  nodes
+  483  kubectl  get pods -o wide 
+  484  kubectl  get pods  ashu-pod-1   -o wide 
+  
+  ```
+  
+  
