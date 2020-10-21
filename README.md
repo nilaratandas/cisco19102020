@@ -162,3 +162,67 @@ builder  buildkit  containers  image  network  overlay2  plugins  runtimes  swar
 <img src="k8sminion.png">
 
 
+# MInikube to Install Single Node K8s Cluster 
+
+## Installing Minikube 
+
+```
+ 416  curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
+  417  ls -lh minikube-darwin-amd64 
+  418  sudo install minikube-darwin-amd64 /usr/local/bin/minikube
+  419  minikube version 
+  
+  ```
+  
+  # Kubernetes Deployment using kubeadm 
+  
+  ```
+  [root@ip-172-31-68-168 ~]# cat  set.sh 
+modprobe br_netfilter
+echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
+swapoff  -a
+cat  <<EOF  >/etc/yum.repos.d/kube.repo
+[kube]
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+gpgcheck=0
+EOF
+
+yum  install  docker -y
+yum  install kubeadm -y
+
+systemctl  enable --now docker 
+systemctl  enable --now kubelet
+
+```
+
+## Only On Master Node. : 
+
+```
+kubeadm  init --pod-network-cidr=192.168.0.0/16  --apiserver-advertise-address=0.0.0.0  --apiserver-cert-extra-sans=3.232.215.153
+
+
+```
+
+## output of above command will be 
+
+```
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 172.31.68.168:6443 --token n6k21g.vpjy1tcveorbw3sg \
+    --discovery-token-ca-cert-hash sha256:246d7a85ce3f574a4830655fd7b2e4f48300e3520dd641d484f01efc311bb433 
+    
+    ```
+    
+    
