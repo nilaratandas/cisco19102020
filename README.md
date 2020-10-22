@@ -185,3 +185,156 @@ service/nilarng1     NodePort    10.103.86.224   <none>        1234:30092/TCP   
 service/sou1         NodePort    10.107.42.78    <none>        1234:30892/TCP   2s
 
 ```
+
+# Replication Controller 
+
+```
+cat  ashu-rc.yml
+apiVersion: v1
+kind: ReplicationController
+metadata:
+ name: ashurcapp1
+spec:
+ replicas: 1  #  no of default pod 
+ template:
+  metadata:
+   name: ashupod1  # name field is optional 
+   labels:
+    x: ashuapp11
+  spec:
+   containers:
+   - image: dockerashu/httpd:ashuv003
+     name: ashuc1
+     ports:
+     - containerPort: 80
+     
+  ```
+  
+  ## Some command in RC 
+  
+  ```
+   217  kubectl apply -f  ashu-rc.yml 
+  218  kubectl  get  replicationcontroller
+  219  kubectl  get  rc
+  220  kubectl get  po 
+  221  kubectl get  po -o wide
+  222  kubectl  get  rc
+  223  kubectl get  po 
+  224  kubectl  expose rc  ashurcapp1  --type NodePort --port 1122 --target-port 80 
+  225  kubectl get svc
+
+
+```
+
+###
+
+```
+ 246  kubectl scale  rc   ashurcapp1  --replicas=5  
+ 
+```
+ 
+ # POD to Deployment journey 
+ 
+ <img src="dep.png">
+ 
+ ```
+ kubectl create  deployment  ashudep1  --image=dockerashu/httpd:ashuv003  --dry-run=client -o yaml  >ashudep1.yml
+ 
+ ```
+ 
+ ## Deployments in K8s
+ 
+ ```
+  256  kubectl create  deployment  ashudep1  --image=dockerashu/httpd:ashuv003  --dry-run=client -o yaml 
+  257  kubectl create  deployment  ashudep1  --image=dockerashu/httpd:ashuv003  --dry-run=client -o yaml  >ashudep1.yml
+  258  vim ashudep1.yml
+  259  hist
+  260  history
+  261  kubectl apply -f ashudep1.yml
+  262  kubectl get  deployment 
+  263  kubectl get  deploy
+  264  kubectl scale  deployment  ashudep1 --replicas=4
+  265  kubectl get  deploy
+  266  kubectl scale  deployment  ashudep1 --replicas=1
+  
+  ```
+  
+  ## Expose Deployment to create service
+  
+  ```
+ kubectl expose deployment  ashudep1 --type NodePort --port 1212 --target-port 80
+ 
+ ```
+ 
+ ## Update application 
+```
+ kubectl  set  image deployment  ashudep1  httpd=dockerashu/httpd:ashuappv2
+```
+## checking Revision History 
+
+```
+❯ kubectl rollout history deployment  ashudep1
+deployment.apps/ashudep1 
+REVISION  CHANGE-CAUSE
+1         <none>
+2         <none>
+```
+
+# Namespaces in K8s 
+
+<img src="ns.png">
+
+```
+❯ kubectl get  namespace
+NAME              STATUS   AGE
+default           Active   6h39m
+kube-node-lease   Active   6h39m
+kube-public       Active   6h39m
+kube-system       Active   6h39m
+❯ 
+❯ 
+❯ kubectl get  ns
+NAME              STATUS   AGE
+default           Active   6h40m
+kube-node-lease   Active   6h40m
+kube-public       Active   6h40m
+kube-system       Active   6h40m
+
+```
+
+## check k8s component 
+
+```
+kubectl get  po  -n kube-system
+NAME                                                   READY   STATUS    RESTARTS   AGE
+calico-kube-controllers-bcc6f659f-2jx6h                1/1     Running   0          6h42m
+calico-node-8sjrb                                      1/1     Running   0          6h42m
+calico-node-dkzfz                                      1/1     Running   0          6h42m
+calico-node-vjlvq                                      1/1     Running   0          6h42m
+coredns-f9fd979d6-7t5lc                                1/1     Running   0          6h42m
+coredns-f9fd979d6-fbd9n                                1/1     Running   0          6h42m
+etcd-ip-172-31-72-45.ec2.internal                      1/1     Running   0          6h42m
+kube-apiserver-ip-172-31-72-45.ec2.internal            1/1     Running   0          6h42m
+kube-controller-manager-ip-172-31-72-45.ec2.internal   1/1     Running   0          6h42m
+kube-proxy-nmkbh                                       1/1     Running   0          6h42m
+kube-proxy-s44vs                                       1/1     Running   0          6h42m
+kube-proxy-v779c                                       1/1     Running   0          6h42m
+kube-scheduler-ip-172-31-72-45.ec2.internal 
+
+```
+
+## create NS 
+
+```
+❯ kubectl create  namespace  ashu-space
+namespace/ashu-space created
+❯ kubectl  get  ns
+NAME              STATUS   AGE
+ashu-space        Active   5s
+default           Active   6h46m
+kube-node-lease   Active   6h46m
+kube-public       Active   6h46m
+kube-system       Active   6h46m
+
+
+```
