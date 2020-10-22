@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:  #  label of service that is optional  for future use 
+    hii: ashusvc1
+  name: ashusvc1   #  name of servcie 
+spec:
+  ports:
+  - name: 1234-80
+    port: 1234  #  port of service  that will be bounded with service IP 
+    protocol: TCP  
+    targetPort: 80  #  app port 
+  selector:  # this is the main thing in svc that will use label to find POD
+    run: ashupod-1  #  same as POD label 
+  type: NodePort
+status:
+  loadBalancer: {}
