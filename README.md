@@ -153,3 +153,35 @@ sousvc1       NodePort    10.103.76.32     <none>        1234:32555/TCP    31s
 
 ```
 
+
+## POD and SVC 
+
+```
+ kubectl  run  ashung1 --image=nginx --port  80
+ 
+ kubectl expose pod ashung1  --type NodePort --port 1234 --target-port 80
+ 
+ ```
+ 
+ ## List POds,svc 
+ 
+ ```
+ kubectl get  pod,svc
+NAME           READY   STATUS    RESTARTS   AGE
+pod/ani1       1/1     Running   0          62s
+pod/ashung1    1/1     Running   0          5m51s
+pod/grvng1     1/1     Running   0          111s
+pod/nikh1      1/1     Running   0          2m15s
+pod/nilarng1   1/1     Running   0          116s
+pod/sou1       1/1     Running   0          81s
+
+NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+service/ani1         NodePort    10.111.193.2    <none>        1234:30286/TCP   40s
+service/ashung1      NodePort    10.99.15.112    <none>        1234:30859/TCP   3m24s
+service/grvng1       NodePort    10.96.169.91    <none>        1234:32025/TCP   84s
+service/kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP          25m
+service/nikh1        NodePort    10.101.225.37   <none>        1234:31162/TCP   108s
+service/nilarng1     NodePort    10.103.86.224   <none>        1234:30092/TCP   98s
+service/sou1         NodePort    10.107.42.78    <none>        1234:30892/TCP   2s
+
+```
