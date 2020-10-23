@@ -380,6 +380,7 @@ kubernetes-dashboard        ClusterIP   10.100.23.105   <none>        443/TCP   
 
 ###
 
+```
 ❯ kubectl  edit  svc  kubernetes-dashboard   -n  kubernetes-dashboard
 service/kubernetes-dashboard edited
 ❯ kubectl get  svc -n kubernetes-dashboard
@@ -387,7 +388,7 @@ NAME                        TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   
 dashboard-metrics-scraper   ClusterIP   10.100.198.44   <none>        8000/TCP        4m52s
 kubernetes-dashboard        NodePort    10.100.23.105   <none>        443:30431/TCP   5m4s
   
-  
+```
   
   ## checking Secret token of k8s dashboard service account 
   
@@ -397,4 +398,26 @@ kubernetes-dashboard        NodePort    10.100.23.105   <none>        443:30431/
   516  kubectl describe secret kubernetes-dashboard-token-r88lf  -n   kubernetes-dashboard  
   
   ```
+  
+  ## Assing clusterrole to service account using cluster role binding 
+  
+  ```
+  ❯ cat k8ssvcclsrole.yml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: admin-user
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: kubernetes-dashboard
+  namespace: kubernetes-dashboard
+  
+  ```
+  
+  
+  
   
