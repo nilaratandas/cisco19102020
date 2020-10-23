@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+ name: ashurcapp1
+spec:
+ replicas: 3  #  no of default pod 
+ template:
+  metadata:
+   name: ashupod1  # name field is optional 
+   labels:
+    x: ashuapp11
+  spec:
+   containers:
+   - image: dockerashu/httpd:ashuv003
+     name: ashuc1
+     ports:
+     - containerPort: 80

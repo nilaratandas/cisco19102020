@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: podx1
+  name: podx1
+spec:
+  nodeName: ip-172-31-76-63.ec2.internal  # here its a manual scheduling 
+  volumes:
+  - name: ashuvol22
+    hostPath:  # from the minion node where your pod will be scheduled 
+     path: /etc
+     type: Directory 
+  containers:
+  - command:
+    - ping
+    - fb.com
+    image: alpine
+    name: podx1
+    volumeMounts:
+    - name: ashuvol22
+      mountPath: /mnt/ashutoshh
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
