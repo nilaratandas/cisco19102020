@@ -420,4 +420,6 @@ subjects:
   
   
   
-  
+ ## Service of Cluster IP type 
+ 
+ <img src="clusterip.png">
